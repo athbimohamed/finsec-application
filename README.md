@@ -35,10 +35,20 @@ finsec-api/
 
 1. Open the project in GitHub Codespaces
 2. Navigate to the project directory:
-   ```bash
-   chmod -R 755 ./
-   cd finsec-api
-   ```
+  #!/bin/bash
+
+# Set safe permissions for all directories
+find . -type d -exec chmod 755 {} \;
+
+# Set safe permissions for all non-sensitive files
+find . -type f -exec chmod 644 {} \;
+
+# Lock down sensitive files like .env and DB configs
+chmod 600 .env
+chmod 600 database/init_db.py
+
+echo "✅ Secure permissions have been applied."
+
 3. Start the Docker containers:
    ```bash
    docker-compose up --build
